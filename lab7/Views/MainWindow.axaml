@@ -1,0 +1,116 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:lab7.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="756" d:DesignHeight="610"
+		MaxHeight="634" MaxWidth="756"
+		MinHeight="634" MinWidth="756"
+        x:Class="lab7.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="lab7">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+	<Window.Styles>
+		<Style Selector="DataGridCell.H1">
+			<Setter Property="HorizontalAlignment" Value="Center"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+		</Style>
+	</Window.Styles>
+	<StackPanel>
+		
+			<Menu  VerticalAlignment="Top">
+				<MenuItem Header="_File">
+					<MenuItem Header="_Save" Command="{Binding Save}"/>
+					<MenuItem Header="_Load " Command="{Binding Load}"/>
+					<Separator/>
+					<MenuItem Header="_Exit" Command="{Binding Exit}"/>
+				</MenuItem>
+				<MenuItem Header="_About" Click="AboutClick"/>
+			</Menu>
+		
+		<ScrollViewer VerticalScrollBarVisibility="Auto" >
+			<DataGrid Items="{Binding Data}" AutoGenerateColumns="false" Name="MainGrid" ColumnWidth="108" Height="450">
+				<DataGrid.Columns>
+					<DataGridTextColumn CellStyleClasses="H1" Header="Имя" Binding="{Binding Name}"/>
+					<DataGridTemplateColumn Header="СГМА">
+						<DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding Cells[0].Mark}" Background="{Binding Cells[0].Background}" Width="108" TextAlignment="Center"/>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellTemplate>
+						<DataGridTemplateColumn.CellEditingTemplate>
+							<DataTemplate>
+								<TextBox Text="{Binding Cells[0].Mark}" LostFocus="FindAverage" Width="108"/>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellEditingTemplate>
+					</DataGridTemplateColumn>
+					<DataGridTemplateColumn CellStyleClasses="H1" Header="МатЛог">
+						<DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding Cells[1].Mark}" Background="{Binding Cells[1].Background}" Width="108" TextAlignment="Center"/>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellTemplate>
+						<DataGridTemplateColumn.CellEditingTemplate>
+							<DataTemplate>
+								<TextBox Text="{Binding Cells[1].Mark}" LostFocus="FindAverage" Width="108"/>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellEditingTemplate>
+					</DataGridTemplateColumn>
+					<DataGridTemplateColumn CellStyleClasses="H1" Header="Саод">
+						<DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding Cells[2].Mark}" Background="{Binding Cells[2].Background}" Width="108" TextAlignment="Center"/>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellTemplate>
+						<DataGridTemplateColumn.CellEditingTemplate>
+							<DataTemplate>
+								<TextBox Text="{Binding Cells[2].Mark}" LostFocus="FindAverage" Width="108"/>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellEditingTemplate>
+					</DataGridTemplateColumn>
+					<DataGridTemplateColumn CellStyleClasses="H1" Header="Физика">
+						<DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding Cells[3].Mark}" Background="{Binding Cells[3].Background}" Width="108" TextAlignment="Center"/>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellTemplate>
+						<DataGridTemplateColumn.CellEditingTemplate>
+							<DataTemplate>
+								<TextBox Text="{Binding Cells[3].Mark}" LostFocus="FindAverage" Width="108"/>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellEditingTemplate>
+					</DataGridTemplateColumn>
+					<DataGridTemplateColumn CellStyleClasses="H1" Header="Среднее">
+						<DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding AverageMark}" Background="{Binding Background}" Width="108"/>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellTemplate>
+					</DataGridTemplateColumn>
+					<DataGridCheckBoxColumn Binding="{Binding IsChecked	}"/>
+				</DataGrid.Columns>
+			</DataGrid>
+		</ScrollViewer>
+		
+		<StackPanel Orientation="Horizontal">
+			<TextBlock Height="50" Width="108"/>
+			<TextBlock Text="{Binding AverageLessons.Cells[0].Mark}" Background="{Binding AverageLessons.Cells[0].Background}" Width="108" TextAlignment="Center"/>
+			<TextBlock Text="{Binding AverageLessons.Cells[1].Mark}" Background="{Binding AverageLessons.Cells[1].Background}" Width="108" TextAlignment="Center"/>
+			<TextBlock Text="{Binding AverageLessons.Cells[2].Mark}" Background="{Binding AverageLessons.Cells[2].Background}" Width="108" TextAlignment="Center"/>
+			<TextBlock Text="{Binding AverageLessons.Cells[3].Mark}" Background="{Binding AverageLessons.Cells[3].Background}" Width="108" TextAlignment="Center"/>
+			
+		</StackPanel>
+		
+		<Button  Command="{Binding AddStudent}" Height="50" Width="756" FontSize="20"
+					HorizontalContentAlignment="Center" VerticalContentAlignment="Center">Add</Button>
+		<Button  Command="{Binding DellStudent}" Height="50" Width="756" FontSize="20"
+					HorizontalContentAlignment="Center" VerticalContentAlignment="Center">Delete</Button>
+
+	</StackPanel>
+		
+
+
+</Window>
