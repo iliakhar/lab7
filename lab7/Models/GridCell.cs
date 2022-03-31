@@ -4,12 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Avalonia.Media;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace lab7.Models
 {
-    public class GridCell
+    public class GridCell : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler? PropertyChanged;
         string mark;
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         public GridCell(string mark)
         {
             Mark = mark;
@@ -21,22 +28,28 @@ namespace lab7.Models
             set
             {
                 mark = value;
-                switch (value)
+                double a;
+                if (!double.TryParse(mark, out a))
                 {
-                    case "0":
+                    mark = "#ERROR";
+                    Background = Brushes.White;
+                }
+                else
+                {
+                    if (a >= 0 && a < 1)
                         Background = Brushes.Red;
-                        break;
-                    case "1":
+                    else if (a >= 1 && a < 1.5)
                         Background = Brushes.Yellow;
-                        break;
-                    case "2":
+                    else if (a >= 1.5 && a <= 2)
                         Background = Brushes.Green;
-                        break;
-                    default:
+                    else
+                    {
                         mark = "#ERROR";
                         Background = Brushes.White;
-                        break;
+                    }
+
                 }
+                NotifyPropertyChanged();
             }
         }
     }

@@ -25,8 +25,8 @@ namespace lab7.ViewModels
                                                           new StudentData("Ербол", new List<string> { "2", "0", "0", "0" }),
             };*/
             Data = new ObservableCollection<StudentData>();
+            AverageLessons = new StudentData("", new List<string> { "0", "0", "0", "0", "0" });
             LoadTable();
-            AverageLessons = new StudentData("", new List<string> { "0", "0", "0", "0" });
             FindAverageLessons();
 
             Exit = ReactiveCommand.Create(() => Environment.Exit(0));
@@ -75,14 +75,14 @@ namespace lab7.ViewModels
                         marks.Add(part);
                     Data.Add(new StudentData(line, marks));
                 }
-
             }
+            FindAverageLessons();
             return 0;
         }
         private int AddStudentToData()
         {
-            if (!string.IsNullOrWhiteSpace(Data[Data.Count - 1].Name))
-                Data.Add(new StudentData("", new List<string> { "#ERROR", "#ERROR", "#ERROR", "#ERROR" }));
+            Data.Add(new StudentData("", new List<string> { "#ERROR", "#ERROR", "#ERROR", "#ERROR" }));
+            FindAverageLessons();
             return 0;
         }
 
@@ -96,6 +96,7 @@ namespace lab7.ViewModels
                     i--;
                 }
             }
+            FindAverageLessons();
             return 0;
         }
 
@@ -103,12 +104,17 @@ namespace lab7.ViewModels
         {
             double count = 0;
             bool isErorr = false;
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 5; i++)
             {
-                foreach(StudentData student in Data)
+                count = 0;
+                for(int j = 0; j < Data.Count; j++)
                 {
-                    int a;
-                    if (int.TryParse(student.Cells[i].Mark, out a))
+                    double a;
+                    string str;
+                    if (i < 4)
+                        str = Data[j].Cells[i].Mark;
+                    else str = Data[j].AverageMark;
+                    if (double.TryParse(str, out a))
                         count += a;
                     else
                     {
@@ -119,7 +125,10 @@ namespace lab7.ViewModels
                     
                 }
                 if (!isErorr)
-                    AverageLessons.Cells[i].Mark = count.ToString();
+                {
+                    AverageLessons.Cells[i].Mark = (count / Data.Count).ToString("N3");
+                }
+                    
                 isErorr = false;
             }
                 

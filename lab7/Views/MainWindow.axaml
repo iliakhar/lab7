@@ -32,7 +32,7 @@
 			</Menu>
 		
 		<ScrollViewer VerticalScrollBarVisibility="Auto" >
-			<DataGrid Items="{Binding Data}" AutoGenerateColumns="false" Name="MainGrid" ColumnWidth="108" Height="450">
+			<DataGrid Items="{Binding Data}" AutoGenerateColumns="false" Name="MainGrid" ColumnWidth="108" Height="460">
 				<DataGrid.Columns>
 					<DataGridTextColumn CellStyleClasses="H1" Header="Имя" Binding="{Binding Name}"/>
 					<DataGridTemplateColumn Header="СГМА">
@@ -86,7 +86,7 @@
 					<DataGridTemplateColumn CellStyleClasses="H1" Header="Среднее">
 						<DataGridTemplateColumn.CellTemplate>
 							<DataTemplate>
-								<TextBlock Text="{Binding AverageMark}" Background="{Binding Background}" Width="108"/>
+								<TextBlock Text="{Binding AverageMark}" Background="{Binding Background}" Width="108" TextAlignment="Center"/>
 							</DataTemplate>
 						</DataGridTemplateColumn.CellTemplate>
 					</DataGridTemplateColumn>
@@ -96,11 +96,12 @@
 		</ScrollViewer>
 		
 		<StackPanel Orientation="Horizontal">
-			<TextBlock Height="50" Width="108"/>
+			<TextBlock Text="Среднее" Height="40" Width="108" TextAlignment="Center"/>
 			<TextBlock Text="{Binding AverageLessons.Cells[0].Mark}" Background="{Binding AverageLessons.Cells[0].Background}" Width="108" TextAlignment="Center"/>
 			<TextBlock Text="{Binding AverageLessons.Cells[1].Mark}" Background="{Binding AverageLessons.Cells[1].Background}" Width="108" TextAlignment="Center"/>
 			<TextBlock Text="{Binding AverageLessons.Cells[2].Mark}" Background="{Binding AverageLessons.Cells[2].Background}" Width="108" TextAlignment="Center"/>
 			<TextBlock Text="{Binding AverageLessons.Cells[3].Mark}" Background="{Binding AverageLessons.Cells[3].Background}" Width="108" TextAlignment="Center"/>
+			<TextBlock Text="{Binding AverageLessons.Cells[4].Mark}" Background="{Binding AverageLessons.Cells[4].Background}" Width="108" TextAlignment="Center"/>
 			
 		</StackPanel>
 		

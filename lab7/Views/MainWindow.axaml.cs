@@ -22,6 +22,8 @@ namespace lab7.Views
             var box = sender as TextBox;
             var student = box.DataContext as StudentData;
             student.FindAverageMark();
+            var context = this.DataContext as MainWindowViewModel;
+            context.FindAverageLessons();
 
         }
 
